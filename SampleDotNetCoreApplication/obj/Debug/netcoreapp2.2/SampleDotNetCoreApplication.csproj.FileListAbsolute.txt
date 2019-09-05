@@ -1,0 +1,14 @@
+C:\Users\brkhande\Documents\Visual Studio 2017\Projects\SampleDotNetCoreApplication\SampleDotNetCoreApplication\bin\Debug\netcoreapp2.2\SampleDotNetCoreApplication.deps.json
+C:\Users\brkhande\Documents\Visual Studio 2017\Projects\SampleDotNetCoreApplication\SampleDotNetCoreApplication\bin\Debug\netcoreapp2.2\SampleDotNetCoreApplication.runtimeconfig.json
+C:\Users\brkhande\Documents\Visual Studio 2017\Projects\SampleDotNetCoreApplication\SampleDotNetCoreApplication\bin\Debug\netcoreapp2.2\SampleDotNetCoreApplication.runtimeconfig.dev.json
+C:\Users\brkhande\Documents\Visual Studio 2017\Projects\SampleDotNetCoreApplication\SampleDotNetCoreApplication\bin\Debug\netcoreapp2.2\SampleDotNetCoreApplication.dll
+C:\Users\brkhande\Documents\Visual Studio 2017\Projects\SampleDotNetCoreApplication\SampleDotNetCoreApplication\bin\Debug\netcoreapp2.2\SampleDotNetCoreApplication.pdb
+C:\Users\brkhande\Documents\Visual Studio 2017\Projects\SampleDotNetCoreApplication\SampleDotNetCoreApplication\obj\Debug\netcoreapp2.2\SampleDotNetCoreApplication.csprojAssemblyReference.cache
+C:\Users\brkhande\Documents\Visual Studio 2017\Projects\SampleDotNetCoreApplication\SampleDotNetCoreApplication\obj\Debug\netcoreapp2.2\SampleDotNetCoreApplication.csproj.CoreCompileInputs.cache
+C:\Users\brkhande\Documents\Visual Studio 2017\Projects\SampleDotNetCoreApplication\SampleDotNetCoreApplication\obj\Debug\netcoreapp2.2\SampleDotNetCoreApplication.RazorAssemblyInfo.cache
+C:\Users\brkhande\Documents\Visual Studio 2017\Projects\SampleDotNetCoreApplication\SampleDotNetCoreApplication\obj\Debug\netcoreapp2.2\SampleDotNetCoreApplication.RazorAssemblyInfo.cs
+C:\Users\brkhande\Documents\Visual Studio 2017\Projects\SampleDotNetCoreApplication\SampleDotNetCoreApplication\obj\Debug\netcoreapp2.2\SampleDotNetCoreApplication.AssemblyInfoInputs.cache
+C:\Users\brkhande\Documents\Visual Studio 2017\Projects\SampleDotNetCoreApplication\SampleDotNetCoreApplication\obj\Debug\netcoreapp2.2\SampleDotNetCoreApplication.AssemblyInfo.cs
+C:\Users\brkhande\Documents\Visual Studio 2017\Projects\SampleDotNetCoreApplication\SampleDotNetCoreApplication\obj\Debug\netcoreapp2.2\SampleDotNetCoreApplication.RazorTargetAssemblyInfo.cache
+C:\Users\brkhande\Documents\Visual Studio 2017\Projects\SampleDotNetCoreApplication\SampleDotNetCoreApplication\obj\Debug\netcoreapp2.2\SampleDotNetCoreApplication.dll
+C:\Users\brkhande\Documents\Visual Studio 2017\Projects\SampleDotNetCoreApplication\SampleDotNetCoreApplication\obj\Debug\netcoreapp2.2\SampleDotNetCoreApplication.pdb
