@@ -1,20 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
+
+// We can simply replace a this web server with kestrel also.
 namespace SampleDotNetCoreApplication
 {
     public class Program
     {
         public static void Main(string[] args)
         {
+            EventSourceLogging.Log.Startup();
             CreateWebHostBuilder(args).Build().Run();
+            // We need to see if we can override some functions which we can override while cancellation also.
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
@@ -22,3 +19,4 @@ namespace SampleDotNetCoreApplication
                 .UseStartup<Startup>();
     }
 }
+    

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 namespace SampleDotNetCoreApplication.Controllers
 {
@@ -18,6 +19,7 @@ namespace SampleDotNetCoreApplication.Controllers
         public FamilyController(FamilyContext context)
         {
             // this means we initialised the database here.
+
             this._context = context;
             if(_context.Families.Count() == 0)
             {
@@ -38,6 +40,9 @@ namespace SampleDotNetCoreApplication.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public IActionResult  GetFamilies(string familyId)
         {
+            string activityID = Guid.NewGuid().ToString();
+            EventSourceLogging.Log.RequestLog(activityID, "GetFamilies", null);
+
             List<Family> familyList = new List<Family>();
             foreach(var family in _context.Families)
             {
@@ -46,9 +51,12 @@ namespace SampleDotNetCoreApplication.Controllers
 
             if (familyList.Count == 0)
             {
-                return new NotFoundObjectResult(new Error(StatusCodes.Status404NotFound, "No Family is not found."));
+                string response = "No Family is not found.";
+                EventSourceLogging.Log.RequestResponse(activityID, response);
+                return new NotFoundObjectResult(new Error(StatusCodes.Status404NotFound, response));
             }
 
+            EventSourceLogging.Log.RequestResponse(activityID, familyList.ToString());
             return Ok(familyList);
         }
 
@@ -58,13 +66,19 @@ namespace SampleDotNetCoreApplication.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetFamilyAsync(string familyId)
         {
+            string activityID = Guid.NewGuid().ToString();
+            EventSourceLogging.Log.RequestLog(activityID, "GetFamilyAsync", familyId);
+
             var family = await _context.Families.FindAsync(familyId);
 
             if(family == null)
             {
-                return new NotFoundObjectResult(new Error(StatusCodes.Status404NotFound, "Given Family is not found."));
+                string response = "Given Family is not found.";
+                EventSourceLogging.Log.RequestResponse(activityID, response);
+                return new NotFoundObjectResult(new Error(StatusCodes.Status404NotFound, response));
             }
 
+            EventSourceLogging.Log.RequestResponse(activityID, family.ToString());
             return Ok(family);
         }
 
@@ -74,8 +88,11 @@ namespace SampleDotNetCoreApplication.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> AddFamilyAsync( [FromBody] FamilyView family)
         {
-            if(!ModelState.IsValid)
-            {
+            string activityID = Guid.NewGuid().ToString();
+            EventSourceLogging.Log.RequestLog(activityID, "AddFamilyAsync", family.ToString());
+            if (!ModelState.IsValid)
+            {                
+                EventSourceLogging.Log.RequestResponse(activityID, "Invalid state");
                 return BadRequest();
             }
 
@@ -83,6 +100,7 @@ namespace SampleDotNetCoreApplication.Controllers
             await _context.Families.AddAsync(familyModel);
             await _context.SaveChangesAsync();
             string guid = familyModel.FamilyId;
+            EventSourceLogging.Log.RequestResponse(activityID, guid);
             return Ok(familyModel.FamilyId);
         }
 
@@ -94,16 +112,20 @@ namespace SampleDotNetCoreApplication.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateFamilyAsync(string familyId, [FromBody] FamilyView familyUpdate)
         {
-
+            string activityID = Guid.NewGuid().ToString();
+            EventSourceLogging.Log.RequestLog(activityID, "UpdateFamilyAsync", familyUpdate.ToString() + "-" + familyId);
             var family = await _context.Families.FindAsync(familyId);
             if(family == null)
             {
-                return new NotFoundObjectResult(new Error(StatusCodes.Status404NotFound, "Given Family is not found."));
+                string response = "Given Family is not found.";
+                EventSourceLogging.Log.RequestResponse(activityID, response);
+                return new NotFoundObjectResult(new Error(StatusCodes.Status404NotFound, response));
             }
             family.UpdateFamily(familyUpdate);
             _context.Entry(family).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
+            EventSourceLogging.Log.RequestResponse(activityID, "Success");
             return NoContent();
         }
         
@@ -113,13 +135,17 @@ namespace SampleDotNetCoreApplication.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RemoveFamily(string familyId)
         {
+            string activityID = Guid.NewGuid().ToString();
+            EventSourceLogging.Log.RequestLog(activityID, "RemoveFamily", familyId);
             var family = await _context.Families.FindAsync(familyId);
             if(family == null)
             {
+                EventSourceLogging.Log.RequestResponse(activityID, "204-Success");
                 return NotFound();
             }
             _context.Families.Remove(family);
             await _context.SaveChangesAsync();
+            EventSourceLogging.Log.RequestResponse(activityID, "201-Success");
             return Ok();
         }
     }

@@ -44,5 +44,18 @@ namespace SampleDotNetCoreApplication.Models
             this.FirstSonOfFamily = (family.FirstSonOfFamily != null) ? family.FirstSonOfFamily : null;
             this.NumberOfFamilyMembers = family.NumberOfFamilyMembers;
         }
+
+        public override string ToString()
+        {
+            string format = "";
+            format += String.Format("HeadOfFamily : {0}", this.HeadOfFamily);
+            format += String.Format("LadyOfFamily : {0}", this.LadyOfFamily);
+            format += String.Format("FamilyId : {0}", this.FamilyId);
+            format += String.Format("FirstSonOfFamily : {0}", this.FirstSonOfFamily);
+            format += String.Format("FirstDaughterOFFamily : {0}", this.FirstDaughterOFFamily);
+            format += String.Format("NumberOfFamilyMembers : {0}", this.NumberOfFamilyMembers);
+
+            return format;
+        }
     }
 }

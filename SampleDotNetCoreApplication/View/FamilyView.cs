@@ -27,5 +27,16 @@ namespace SampleDotNetCoreApplication.View
         [JsonProperty(Required = Required.Default)]
         public string FirstDaughterOFFamily { get; set; }
 
+        public override string ToString()
+        {
+            string format = "";
+            format += String.Format("HeadOfFamily : {0}", this.HeadOfFamily);
+            format += String.Format("LadyOfFamily : {0}", this.LadyOfFamily);
+            format += String.Format("FirstSonOfFamily : {0}", this.FirstSonOfFamily);
+            format += String.Format("FirstDaughterOFFamily : {0}", this.FirstDaughterOFFamily);
+            format += String.Format("NumberOfFamilyMembers : {0}", this.NumberOfFamilyMembers);
+
+            return format;
+        }
     }
 }
