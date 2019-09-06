@@ -3,19 +3,15 @@ using Microsoft.AspNetCore.Mvc;
 using SampleDotNetCoreApplication.Models;
 using SampleDotNetCoreApplication.View;
 using System.Threading.Tasks;
-using System;
-using System.IO;
-using System.Net;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace SampleDotNetCoreApplication.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    internal class FamilyController : ControllerBase
+    public class FamilyController : ControllerBase
     {
         private readonly FamilyContext _context;
 
@@ -33,13 +29,14 @@ namespace SampleDotNetCoreApplication.Controllers
                 defaultFamily.FirstSonOfFamily = "Brijesh";
                 defaultFamily.FirstDaughterOFFamily = "Ritu";
                 _context.Families.Add(defaultFamily);
+                _context.SaveChanges();
             }
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(Family), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<Family>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        internal IActionResult GetFamilies(string familyId)
+        public IActionResult  GetFamilies(string familyId)
         {
             List<Family> familyList = new List<Family>();
             foreach(var family in _context.Families)
@@ -59,7 +56,7 @@ namespace SampleDotNetCoreApplication.Controllers
         [HttpGet("FamilyId/{familyId}")]
         [ProducesResponseType(typeof(Family), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        internal async Task<IActionResult> GetFamilyAsync(string familyId)
+        public async Task<IActionResult> GetFamilyAsync(string familyId)
         {
             var family = await _context.Families.FindAsync(familyId);
 
@@ -75,7 +72,7 @@ namespace SampleDotNetCoreApplication.Controllers
         [ProducesResponseType(typeof(Family), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        internal async Task<IActionResult> AddFamilyAsync( [FromBody] FamilyView family)
+        public async Task<IActionResult> AddFamilyAsync( [FromBody] FamilyView family)
         {
             if(!ModelState.IsValid)
             {
@@ -84,8 +81,46 @@ namespace SampleDotNetCoreApplication.Controllers
 
             Family familyModel = new Family(family);
             await _context.Families.AddAsync(familyModel);
+            await _context.SaveChangesAsync();
             string guid = familyModel.FamilyId;
-            return CreatedAtAction(nameof(familyModel), new { id = familyModel.FamilyId}, familyModel);
+            return Ok(familyModel.FamilyId);
+        }
+
+        // It is a put request to update the some datamember of the family object.
+        // But here client needs to send the complete object
+        [HttpPut("familyid/{familyId}")]
+        [ProducesResponseType(typeof(Family), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateFamilyAsync(string familyId, [FromBody] FamilyView familyUpdate)
+        {
+
+            var family = await _context.Families.FindAsync(familyId);
+            if(family == null)
+            {
+                return new NotFoundObjectResult(new Error(StatusCodes.Status404NotFound, "Given Family is not found."));
+            }
+            family.UpdateFamily(familyUpdate);
+            _context.Entry(family).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+        
+        [HttpDelete("familyid/{familyId}")]
+        [ProducesResponseType(typeof(Family), StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(Family), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> RemoveFamily(string familyId)
+        {
+            var family = await _context.Families.FindAsync(familyId);
+            if(family == null)
+            {
+                return NotFound();
+            }
+            _context.Families.Remove(family);
+            await _context.SaveChangesAsync();
+            return Ok();
         }
     }
 }

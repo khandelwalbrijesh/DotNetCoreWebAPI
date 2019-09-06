@@ -3,8 +3,8 @@
     "windowsAuthentication": false, 
     "anonymousAuthentication": true,
     "iisExpress": {
-      //"applicationUrl": "https://localhost:53092",
-      "applicationUrl": "http://localhost:53092",
+      //"applicationUrl": "https://localhost:53000",
+      "applicationUrl": "http://localhost:53000",
       "sslPort": 0
     }
   },
@@ -12,6 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
+      "launchUrl": "api/family",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -19,6 +20,7 @@
     "SampleDotNetCoreApplication": {
       "commandName": "Project",
       "launchBrowser": true,
+      "launchUrl": "api/family",
       //"applicationUrl": "https://localhost:5001;http://localhost:5000",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {

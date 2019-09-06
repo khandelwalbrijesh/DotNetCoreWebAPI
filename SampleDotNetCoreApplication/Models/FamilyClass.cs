@@ -34,5 +34,15 @@ namespace SampleDotNetCoreApplication.Models
         {
             this.FamilyId = Guid.NewGuid().ToString();
         }
+
+        public void UpdateFamily(FamilyView family)
+        {
+            this.HeadOfFamily = family.HeadOfFamily;
+            this.FamilyName = family.FamilyName;
+            this.LadyOfFamily = family.LadyOfFamily;
+            this.FirstDaughterOFFamily = (family.FirstDaughterOFFamily != null) ? family.FirstDaughterOFFamily : null;
+            this.FirstSonOfFamily = (family.FirstSonOfFamily != null) ? family.FirstSonOfFamily : null;
+            this.NumberOfFamilyMembers = family.NumberOfFamilyMembers;
+        }
     }
 }
