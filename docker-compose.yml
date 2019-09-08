@@ -1,0 +1,6 @@
+dotnetcoreservice:
+  build: ./SampleDotNetCoreApplication/
+  ports:
+    - "8081:80"
+  environment:
+    port: "80"
