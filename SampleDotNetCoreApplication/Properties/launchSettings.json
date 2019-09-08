@@ -5,7 +5,7 @@
       "launchBrowser": true,
       "launchUrl": "api/family",
       //"applicationUrl": "https://localhost:5001;http://localhost:5000",    <--- We would need to see how to configure this for a particular https server
-      "applicationUrl": "http://localhost:5000",
+      "applicationUrl": "http://localhost:80",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

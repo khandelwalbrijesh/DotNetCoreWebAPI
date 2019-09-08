@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace SampleDotNetCoreApplication
 {
+    [EventSource(Name = "SampleDotNetCoreWebApp", Guid = "b802d8a9-bf4a-45a3-b13e-a01b101c80f3")]
     public class EventSourceLogging : EventSource
     {
         public class Keywords
