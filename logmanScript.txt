@@ -1,0 +1,3 @@
+logman create trace SampleDotNetCoreApplicationTraces -pf LogManConfigurationFile.cfg -o "E:\Work\DotNetCoreWebAPI\SampleDotNetCoreApplicationTraces.etl" -v mmddhhmm -bs 64 -max 100
+logman start SampleDotNetCoreApplicationTraces 
+logman stop SampleDotNetCoreApplicationTraces 
